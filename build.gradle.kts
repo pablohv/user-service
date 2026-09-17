@@ -5,6 +5,7 @@ plugins {
 
     id("jacoco")
     id("com.github.spotbugs") version "6.2.4"
+    id("com.diffplug.spotless") version "7.2.1"
     pmd
 }
 
@@ -156,4 +157,10 @@ pmd {
         "category/java/performance.xml",
         "category/java/codestyle.xml"
     )
+}
+
+spotless {
+    java {
+        removeUnusedImports()
+    }
 }
