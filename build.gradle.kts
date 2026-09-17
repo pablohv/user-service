@@ -4,6 +4,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
 
     id("jacoco")
+    id("com.github.spotbugs") version "6.2.4"
+    id("com.diffplug.spotless") version "7.2.1"
     pmd
 }
 
@@ -43,6 +45,9 @@ dependencies {
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testAnnotationProcessor("org.projectlombok:lombok")
+
+    spotbugs("com.github.spotbugs:spotbugs:4.9.8")
+    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
 }
 
 tasks.test {
@@ -127,6 +132,23 @@ tasks.check {
     dependsOn(tasks.jacocoTestCoverageVerification)
 }
 
+spotbugs {
+    ignoreFailures.set(false)
+    showProgress.set(true)
+}
+
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
+    reports {
+        create("html") {
+            required.set(true)
+        }
+
+        create("xml") {
+            required.set(false)
+        }
+    }
+}
+
 pmd {
     toolVersion = "7.13.0"
     ruleSets = listOf(
@@ -135,4 +157,10 @@ pmd {
         "category/java/performance.xml",
         "category/java/codestyle.xml"
     )
+}
+
+spotless {
+    java {
+        removeUnusedImports()
+    }
 }
