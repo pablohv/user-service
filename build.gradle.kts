@@ -131,6 +131,8 @@ pmd {
     toolVersion = "7.13.0"
     ruleSets = listOf(
         "category/java/bestpractices.xml",
-        "category/java/errorprone.xml"
+        "category/java/errorprone.xml",
+        "category/java/performance.xml",
+        "category/java/codestyle.xml"
     )
 }
