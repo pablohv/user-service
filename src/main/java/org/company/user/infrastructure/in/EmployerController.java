@@ -39,11 +39,8 @@ public class EmployerController {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> validateEmployee(@RequestBody @Valid EmployeeValidateRequest employeeValidateRequest) {
-        boolean valid = employeeUseCasePort.validateEmployee(employeeInMapper.toDomain(employeeValidateRequest));
-        if (!valid)
-            return ResponseEntity.unprocessableContent().build();
-
-        return ResponseEntity.ok(true);
+        employeeUseCasePort.validateEmployee(employeeInMapper.toDomain(employeeValidateRequest));
+        return ResponseEntity.ok().build();
     }
 
 }

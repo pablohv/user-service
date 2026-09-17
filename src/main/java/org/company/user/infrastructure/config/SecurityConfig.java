@@ -14,10 +14,9 @@ public class SecurityConfig {
     ) throws Exception {
 
         http
-                .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers("/api/**")
-                        .hasAuthority("SCOPE_servicio-b.read")
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/api/**")
+                        .hasAuthority("SCOPE_user-service.write")
                         .anyRequest()
                         .authenticated()
                 )

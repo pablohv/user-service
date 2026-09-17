@@ -7,6 +7,6 @@ public interface EmployeeUseCasePort {
 
     void create(Employee employee);
 
-    boolean validateEmployee(EmployeeValidation employeeValidate);
+    void validateEmployee(EmployeeValidation employeeValidate);
 
 }

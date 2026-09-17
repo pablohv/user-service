@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.company.user.application.port.in.EmployeeUseCasePort;
 import org.company.user.application.port.out.EmployeeRepository;
 import org.company.user.application.port.out.PasswordHash;
+import org.company.user.domain.exception.EmployeeException;
+import org.company.user.domain.exception.ErrorCode;
 import org.company.user.domain.model.Employee;
 import org.company.user.domain.model.EmployeeValidation;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,11 @@ public class EmployeeService implements EmployeeUseCasePort {
     }
 
     @Override
-    public boolean validateEmployee(EmployeeValidation employeeValidate) {
+    public void validateEmployee(EmployeeValidation employeeValidate) {
         Employee employee = employeeRepository.findByEmail(employeeValidate.getEmail());
-        return passwordHash.checkPassword(employeeValidate.getPassword(), employee.getPassword());
+
+        if (!passwordHash.checkPassword(employeeValidate.getPassword(), employee.getPassword()))
+            throw new EmployeeException(ErrorCode.EMPLOYEE_INVALID_CREDENTIALS);
     }
 
 }
