@@ -2,6 +2,7 @@ package org.company.user.infrastructure.exception;
 
 import lombok.RequiredArgsConstructor;
 import org.company.user.domain.exception.EmployeeException;
+import org.company.user.domain.exception.ErrorCode;
 import org.company.user.infrastructure.in.response.ValidationErrorResponse;
 import org.company.user.infrastructure.out.MessageProvider;
 import org.company.user.infrastructure.util.UtilDate;
@@ -18,6 +19,28 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     private final MessageProvider messageProvider;
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ValidationErrorResponse> handleValidationErrors(
+            MethodArgumentNotValidException ex) {
+
+        List<String> errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> messageProvider.getMessage(error.getDefaultMessage()))
+                .toList();
+
+        ValidationErrorResponse response =
+                new ValidationErrorResponse(
+                        "VALIDATION_ERROR",
+                        errors,
+                        UtilDate.getCurrentDate()
+                );
+
+        return ResponseEntity
+                .badRequest()
+                .body(response);
+    }
 
     @ExceptionHandler(EmployeeException.class)
     public ResponseEntity<?> handleEmployeeException(EmployeeException ex) {
@@ -39,25 +62,24 @@ public class GlobalExceptionHandler {
                 .body(response);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrorResponse> handleValidationErrors(
-            MethodArgumentNotValidException ex) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ValidationErrorResponse> handleGenericErrors(
+            Exception ex) {
 
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> messageProvider.getMessage(error.getDefaultMessage()))
-                .toList();
+        String message = messageProvider.getMessage(ErrorCode.GENERIC_EXCEPTION.name());
+
+        List<String> errors = new ArrayList<>();
+        errors.add(message);
 
         ValidationErrorResponse response =
                 new ValidationErrorResponse(
-                        "VALIDATION_ERROR",
+                        ErrorCode.GENERIC_EXCEPTION.name(),
                         errors,
                         UtilDate.getCurrentDate()
                 );
 
         return ResponseEntity
-                .badRequest()
+                .status(ErrorCode.GENERIC_EXCEPTION.getStatus())
                 .body(response);
     }
 
