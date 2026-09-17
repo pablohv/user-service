@@ -14,14 +14,14 @@ public class LocaleConfig {
 
     @Bean
     public LocaleResolver localeResolver() {
-        AcceptHeaderLocaleResolver acceptHeaderLocaleResolver = new AcceptHeaderLocaleResolver();
+        final AcceptHeaderLocaleResolver acceptHeaderLocaleResolver = new AcceptHeaderLocaleResolver();
         acceptHeaderLocaleResolver.setDefaultLocale(Locale.ENGLISH);
         return acceptHeaderLocaleResolver;
     }
 
     @Bean
     public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+        final ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
         source.setBasename("classpath:messages");
         source.setDefaultEncoding("UTF-8");
         return source;

@@ -12,12 +12,12 @@ public class PasswordHashAdapter implements PasswordHash {
     private final PasswordEncoder encoder;
 
     @Override
-    public String hash(String password) {
+    public String hash(final String password) {
         return encoder.encode(password);
     }
 
     @Override
-    public boolean checkPassword(String password, String hashedPassword) {
+    public boolean checkPassword(final String password, final String hashedPassword) {
         return encoder.matches(password, hashedPassword);
     }
 

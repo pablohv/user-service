@@ -5,7 +5,6 @@ import org.company.user.application.port.out.EmployeeRepository;
 import org.company.user.domain.exception.EmployeeException;
 import org.company.user.domain.exception.ErrorCode;
 import org.company.user.domain.model.Employee;
-import org.company.user.infrastructure.out.repository.entity.EmployeeEntity;
 import org.company.user.infrastructure.out.repository.mapper.EmployeeEntityMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -18,17 +17,16 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     private final EmployeeEntityMapper employeeEntityMapper;
 
     @Override
-    public void saveEmployee(Employee employee) {
+    public void saveEmployee(final Employee employee) {
         try {
-            EmployeeEntity employeeEntity = employeeEntityMapper.employeeToEntity(employee);
-            employeeJpaRepository.save(employeeEntity);
+            employeeJpaRepository.save(employeeEntityMapper.employeeToEntity(employee));
         } catch (DataIntegrityViolationException ex) {
-            throw new EmployeeException(ErrorCode.EMPLOYEE_EMAIL_ALREADY_EXISTS);
+            throw new EmployeeException(ErrorCode.EMPLOYEE_EMAIL_ALREADY_EXISTS, ex);
         }
     }
 
     @Override
-    public Employee findByEmail(String email) {
+    public Employee findByEmail(final String email) {
         return employeeEntityMapper.entityToEmploy(employeeJpaRepository.findByEmail(email));
     }
 
