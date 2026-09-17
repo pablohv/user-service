@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "4.1.1"
     id("io.spring.dependency-management") version "1.1.7"
+    id("jacoco")
 }
 
 group = "org.company"
@@ -42,6 +43,84 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok")
 }
 
-tasks.withType<Test> {
+tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+jacoco {
+    toolVersion = "0.8.13"
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+
+    classDirectories.setFrom(
+        files(
+            classDirectories.files.map {
+                fileTree(it) {
+                    exclude(
+                        "**/UserServiceApplication.class",
+                        "**/domain/model/**",
+                        "**/domain/exception/**",
+                        "**/infrastructure/config/**",
+                        "**/infrastructure/exception/**",
+                        "**/infrastructure/in/mapper/**",
+                        "**/infrastructure/in/request/**",
+                        "**/infrastructure/in/response/**",
+                        "**/infrastructure/in/response/**",
+                        "**/infrastructure/out/hash/**",
+                        "**/infrastructure/out/repository/entity/**",
+                        "**/infrastructure/out/repository/mapper/**",
+                        "**/MessageProvider.class"
+                    )
+                }
+            }
+        )
+    )
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+
+    classDirectories.setFrom(
+        files(
+            classDirectories.files.map {
+                fileTree(it) {
+                    exclude(
+                        "**/UserServiceApplication.class",
+                        "**/domain/model/**",
+                        "**/domain/exception/**",
+                        "**/infrastructure/config/**",
+                        "**/infrastructure/exception/**",
+                        "**/infrastructure/in/mapper/**",
+                        "**/infrastructure/in/request/**",
+                        "**/infrastructure/in/response/**",
+                        "**/infrastructure/in/response/**",
+                        "**/infrastructure/out/hash/**",
+                        "**/infrastructure/out/repository/entity/**",
+                        "**/infrastructure/out/repository/mapper/**",
+                        "**/MessageProvider.class"
+                    )
+                }
+            }
+        )
+    )
+
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.80".toBigDecimal()
+            }
+        }
+    }
+}
+
+tasks.check {
+    dependsOn(tasks.jacocoTestCoverageVerification)
 }
