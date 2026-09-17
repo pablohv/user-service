@@ -2,7 +2,9 @@ plugins {
     java
     id("org.springframework.boot") version "4.1.1"
     id("io.spring.dependency-management") version "1.1.7"
+
     id("jacoco")
+    pmd
 }
 
 group = "org.company"
@@ -123,4 +125,12 @@ tasks.jacocoTestCoverageVerification {
 
 tasks.check {
     dependsOn(tasks.jacocoTestCoverageVerification)
+}
+
+pmd {
+    toolVersion = "7.13.0"
+    ruleSets = listOf(
+        "category/java/bestpractices.xml",
+        "category/java/errorprone.xml"
+    )
 }
