@@ -5,6 +5,7 @@ import org.company.user.application.port.out.EmployeeRepository;
 import org.company.user.domain.exception.EmployeeException;
 import org.company.user.domain.exception.ErrorCode;
 import org.company.user.domain.model.Employee;
+import org.company.user.infrastructure.out.repository.entity.EmployeeEntity;
 import org.company.user.infrastructure.out.repository.mapper.EmployeeEntityMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -28,8 +29,7 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
 
     @Override
     public Employee findByEmail(String email) {
-        EmployeeEntity byEmail = employeeJpaRepository.findByEmail(email);
-        return employeeEntityMapper.entityToEmploy(byEmail);
+        return employeeEntityMapper.entityToEmploy(employeeJpaRepository.findByEmail(email));
     }
 
 }

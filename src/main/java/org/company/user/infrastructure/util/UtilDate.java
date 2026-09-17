@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 
 public class UtilDate {
 
+    public UtilDate() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static final DateTimeFormatter DATE_TIME = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     public static Clock CLOCK_ZONE_MEXICO = Clock.system(ZoneId.of("America/Mexico_City"));
 

@@ -1,4 +1,4 @@
-package org.company.user.infrastructure.out.repository;
+package org.company.user.infrastructure.out.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

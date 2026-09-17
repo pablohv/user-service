@@ -1,5 +1,6 @@
 package org.company.user.infrastructure.out.repository;
 
+import org.company.user.infrastructure.out.repository.entity.EmployeeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
