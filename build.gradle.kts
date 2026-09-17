@@ -5,6 +5,7 @@ plugins {
 
     id("jacoco")
     id("com.github.spotbugs") version "6.2.4"
+    id("org.owasp.dependencycheck") version "12.1.8"
     pmd
 }
 
@@ -156,4 +157,8 @@ pmd {
         "category/java/performance.xml",
         "category/java/codestyle.xml"
     )
+}
+
+dependencyCheck {
+    failBuildOnCVSS = 7.0F
 }
