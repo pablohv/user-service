@@ -7,4 +7,9 @@ public record ValidationErrorResponse(
         List<String> errors,
         String timestamp
 ) {
+
+    public ValidationErrorResponse {
+        errors = List.copyOf(errors);
+    }
+
 }

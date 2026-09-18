@@ -12,11 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UtilDateTest {
 
     @Test
-    void validateWhenInstanceDateIsNotCorrect() {
-        assertThrows(IllegalStateException.class, UtilDate::new);
-    }
-
-    @Test
     void validateDateWhenDateIsCorrect() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 

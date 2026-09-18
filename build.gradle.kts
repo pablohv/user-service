@@ -135,6 +135,9 @@ tasks.check {
 spotbugs {
     ignoreFailures.set(false)
     showProgress.set(true)
+
+    effort.set(com.github.spotbugs.snom.Effort.MAX)
+    reportLevel.set(com.github.spotbugs.snom.Confidence.DEFAULT)
 }
 
 tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
