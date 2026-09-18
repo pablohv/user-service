@@ -18,6 +18,7 @@ public class EmployeeException extends RuntimeException {
     }
 
     public EmployeeException(final ErrorCode errorCode) {
+        super();
         this.errorCode = errorCode;
     }
 

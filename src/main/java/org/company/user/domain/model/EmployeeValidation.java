@@ -5,9 +5,6 @@ public class EmployeeValidation {
     private String email;
     private String password;
 
-    public EmployeeValidation() {
-    }
-
     public String getPassword() {
         return password;
     }

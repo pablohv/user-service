@@ -17,9 +17,6 @@ public class Employee {
     private String country;
     private String nationality;
 
-    public Employee() {
-    }
-
     public String getLastName() {
         return lastName;
     }

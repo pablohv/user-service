@@ -151,12 +151,16 @@ tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
 
 pmd {
     toolVersion = "7.13.0"
+
     ruleSets = listOf(
         "category/java/bestpractices.xml",
         "category/java/errorprone.xml",
-        "category/java/performance.xml",
-        "category/java/codestyle.xml"
+        "category/java/performance.xml"
+        //"category/java/codestyle.xml" -> se elimina y se agrega en el archivo .xml
     )
+
+    // Añadimos tu archivo personalizado que gestiona y modifica codestyle
+    ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
 }
 
 spotless {
