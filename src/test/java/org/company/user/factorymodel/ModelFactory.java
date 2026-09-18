@@ -1,14 +1,14 @@
 package org.company.user.factorymodel;
 
 import org.company.user.domain.model.Employee;
-import org.company.user.domain.model.EmployeeValidation;
-import org.company.user.infrastructure.in.request.EmployeeValidateRequest;
-import org.company.user.infrastructure.in.request.EmployerRequest;
+import org.company.user.domain.model.EmployeeCredentials;
+import org.company.user.infrastructure.in.request.EmployeeCredentialsRequest;
+import org.company.user.infrastructure.in.request.EmployeeRequest;
 
 public class ModelFactory {
 
-    public static EmployerRequest createEmployerRq() {
-        EmployerRequest employee = new EmployerRequest();
+    public static EmployeeRequest createEmployeeRq() {
+        EmployeeRequest employee = new EmployeeRequest();
 
         employee.setFirstName("Juan");
         employee.setLastName("Pérez");
@@ -27,8 +27,8 @@ public class ModelFactory {
         return employee;
     }
 
-    public static EmployeeValidateRequest createEmployeeValidateRq() {
-        EmployeeValidateRequest employee = new EmployeeValidateRequest();
+    public static EmployeeCredentialsRequest createEmployeeCredentialsRq() {
+        EmployeeCredentialsRequest employee = new EmployeeCredentialsRequest();
 
         employee.setEmail("juan.perez@email.com");
         employee.setPassword("Password123");
@@ -56,11 +56,11 @@ public class ModelFactory {
         return employee;
     }
 
-    public static EmployeeValidation createEmployeeValidation() {
-        EmployeeValidation employeeValidation = new EmployeeValidation();
-        employeeValidation.setEmail("juan.perez@email.com");
-        employeeValidation.setPassword("Password123");
-        return employeeValidation;
+    public static EmployeeCredentials createEmployeeCredentials() {
+        EmployeeCredentials employeeCredentials = new EmployeeCredentials();
+        employeeCredentials.setEmail("juan.perez@email.com");
+        employeeCredentials.setPassword("Password123");
+        return employeeCredentials;
     }
 
 }

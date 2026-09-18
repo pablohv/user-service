@@ -1,6 +1,7 @@
 package org.company.user.infrastructure.out.repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.company.user.application.port.out.EmployeeRepository;
 import org.company.user.domain.exception.EmployeeException;
 import org.company.user.domain.exception.ErrorCode;
@@ -9,11 +10,14 @@ import org.company.user.infrastructure.out.repository.mapper.EmployeeEntityMappe
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class EmployeeRepositoryAdapter implements EmployeeRepository {
 
-    private final EmployeJpaRepository employeeJpaRepository;
+    private final EmployeeJpaRepository employeeJpaRepository;
     private final EmployeeEntityMapper employeeEntityMapper;
 
     @Override
@@ -21,13 +25,15 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
         try {
             employeeJpaRepository.save(employeeEntityMapper.employeeToEntity(employee));
         } catch (DataIntegrityViolationException ex) {
+            log.warn("Attempt to register an already existing email");
             throw new EmployeeException(ErrorCode.EMPLOYEE_EMAIL_ALREADY_EXISTS, ex);
         }
     }
 
     @Override
-    public Employee findByEmail(final String email) {
-        return employeeEntityMapper.entityToEmploy(employeeJpaRepository.findByEmail(email));
+    public Optional<Employee> findByEmail(final String email) {
+        return employeeJpaRepository.findByEmail(email)
+                .map(employeeEntityMapper::entityToEmployee);
     }
 
 }

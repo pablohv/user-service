@@ -1,6 +1,6 @@
 package org.company.user.domain.model;
 
-public class EmployeeValidation {
+public class EmployeeCredentials {
 
     private String email;
     private String password;

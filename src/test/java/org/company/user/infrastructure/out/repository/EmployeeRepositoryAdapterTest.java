@@ -2,6 +2,7 @@ package org.company.user.infrastructure.out.repository;
 
 import org.company.user.domain.exception.EmployeeException;
 import org.company.user.domain.exception.ErrorCode;
+import org.company.user.domain.model.Employee;
 import org.company.user.infrastructure.out.repository.entity.EmployeeEntity;
 import org.company.user.infrastructure.out.repository.mapper.EmployeeEntityMapper;
 import org.junit.jupiter.api.Test;
@@ -11,9 +12,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import java.util.Optional;
+
 import static org.company.user.factorymodel.ModelFactory.createEmployee;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -21,7 +25,7 @@ import static org.mockito.Mockito.*;
 class EmployeeRepositoryAdapterTest {
 
     @Mock
-    private EmployeJpaRepository employeeJpaRepository;
+    private EmployeeJpaRepository employeeJpaRepository;
 
     @Mock
     private EmployeeEntityMapper employeeEntityMapper;
@@ -49,11 +53,23 @@ class EmployeeRepositoryAdapterTest {
 
     @Test
     void findEmployeeEntityWhenIsOk() {
-        when(employeeJpaRepository.findByEmail(anyString())).thenReturn(EmployeeEntity.builder().build());
-        when(employeeEntityMapper.entityToEmploy(any())).thenReturn(createEmployee());
+        when(employeeJpaRepository.findByEmail(anyString())).thenReturn(Optional.of(EmployeeEntity.builder().build()));
+        when(employeeEntityMapper.entityToEmployee(any())).thenReturn(createEmployee());
 
-        employeeRepositoryAdapter.findByEmail("juan.perez@email.com");
+        final Optional<Employee> result = employeeRepositoryAdapter.findByEmail("juan.perez@email.com");
+
+        assertTrue(result.isPresent());
         verify(employeeJpaRepository, times(1)).findByEmail(anyString());
+    }
+
+    @Test
+    void findEmployeeEntityWhenEmailDoesNotExist() {
+        when(employeeJpaRepository.findByEmail(anyString())).thenReturn(Optional.empty());
+
+        final Optional<Employee> result = employeeRepositoryAdapter.findByEmail("unknown@email.com");
+
+        assertTrue(result.isEmpty());
+        verify(employeeEntityMapper, never()).entityToEmployee(any());
     }
 
 }

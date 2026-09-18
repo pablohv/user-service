@@ -1,6 +1,7 @@
 package org.company.user.infrastructure.exception;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.company.user.domain.exception.EmployeeException;
 import org.company.user.domain.exception.ErrorCode;
 import org.company.user.infrastructure.in.response.ValidationErrorResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
@@ -45,6 +47,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmployeeException.class)
     public ResponseEntity<?> handleEmployeeException(final EmployeeException ex) {
 
+        if (log.isWarnEnabled()) {
+            log.warn("Business rule violation: {}", ex.getErrorCode().name());
+        }
+
         final String message = messageProvider.getMessage(ex.getErrorCode().name());
 
         final List<String> errors = new ArrayList<>();
@@ -63,7 +69,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ValidationErrorResponse> handleGenericErrors() {
+    public ResponseEntity<ValidationErrorResponse> handleGenericErrors(final Exception ex) {
+
+        log.error("Unhandled exception", ex);
 
         final String message = messageProvider.getMessage(ErrorCode.GENERIC_EXCEPTION.name());
 

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployerRequest {
+public class EmployeeRequest {
 
     @NotBlank(message = "VALIDATION_NAME_MUST_NOT_BE_BLANK")
     private String firstName;

@@ -23,6 +23,8 @@ repositories {
     mavenCentral()
 }
 
+val mapstructVersion = "1.6.3"
+
 dependencies {
 
     implementation("org.springframework.security:spring-security-crypto")
@@ -35,10 +37,15 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
+    implementation("org.flywaydb:flyway-mysql")
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    implementation("org.mapstruct:mapstruct:$mapstructVersion")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testCompileOnly("org.projectlombok:lombok")
@@ -71,14 +78,10 @@ tasks.jacocoTestReport {
                         "**/domain/model/**",
                         "**/domain/exception/**",
                         "**/infrastructure/config/**",
-                        "**/infrastructure/exception/**",
-                        "**/infrastructure/in/mapper/**",
                         "**/infrastructure/in/request/**",
-                        "**/infrastructure/in/response/**",
                         "**/infrastructure/in/response/**",
                         "**/infrastructure/out/hash/**",
                         "**/infrastructure/out/repository/entity/**",
-                        "**/infrastructure/out/repository/mapper/**",
                         "**/MessageProvider.class"
                     )
                 }
@@ -104,14 +107,10 @@ tasks.jacocoTestCoverageVerification {
                         "**/domain/model/**",
                         "**/domain/exception/**",
                         "**/infrastructure/config/**",
-                        "**/infrastructure/exception/**",
-                        "**/infrastructure/in/mapper/**",
                         "**/infrastructure/in/request/**",
-                        "**/infrastructure/in/response/**",
                         "**/infrastructure/in/response/**",
                         "**/infrastructure/out/hash/**",
                         "**/infrastructure/out/repository/entity/**",
-                        "**/infrastructure/out/repository/mapper/**",
                         "**/MessageProvider.class"
                     )
                 }
