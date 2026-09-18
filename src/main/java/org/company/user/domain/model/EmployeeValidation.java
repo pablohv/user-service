@@ -5,14 +5,11 @@ public class EmployeeValidation {
     private String email;
     private String password;
 
-    public EmployeeValidation() {
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -20,7 +17,7 @@ public class EmployeeValidation {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 }

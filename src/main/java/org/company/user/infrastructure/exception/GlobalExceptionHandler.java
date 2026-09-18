@@ -22,15 +22,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrorResponse> handleValidationErrors(
-            MethodArgumentNotValidException ex) {
+            final MethodArgumentNotValidException ex) {
 
-        List<String> errors = ex.getBindingResult()
+        final List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(error -> messageProvider.getMessage(error.getDefaultMessage()))
                 .toList();
 
-        ValidationErrorResponse response =
+        final ValidationErrorResponse response =
                 new ValidationErrorResponse(
                         "VALIDATION_ERROR",
                         errors,
@@ -43,14 +43,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EmployeeException.class)
-    public ResponseEntity<?> handleEmployeeException(EmployeeException ex) {
+    public ResponseEntity<?> handleEmployeeException(final EmployeeException ex) {
 
-        String message = messageProvider.getMessage(ex.getErrorCode().name());
+        final String message = messageProvider.getMessage(ex.getErrorCode().name());
 
-        List<String> errors = new ArrayList<>();
+        final List<String> errors = new ArrayList<>();
         errors.add(message);
 
-        ValidationErrorResponse response =
+        final ValidationErrorResponse response =
                 new ValidationErrorResponse(
                         ex.getErrorCode().name(),
                         errors,
@@ -63,15 +63,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ValidationErrorResponse> handleGenericErrors(
-            Exception ex) {
+    public ResponseEntity<ValidationErrorResponse> handleGenericErrors() {
 
-        String message = messageProvider.getMessage(ErrorCode.GENERIC_EXCEPTION.name());
+        final String message = messageProvider.getMessage(ErrorCode.GENERIC_EXCEPTION.name());
 
-        List<String> errors = new ArrayList<>();
+        final List<String> errors = new ArrayList<>();
         errors.add(message);
 
-        ValidationErrorResponse response =
+        final ValidationErrorResponse response =
                 new ValidationErrorResponse(
                         ErrorCode.GENERIC_EXCEPTION.name(),
                         errors,

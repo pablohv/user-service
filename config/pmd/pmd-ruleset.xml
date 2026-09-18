@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom Codestyle Ruleset"
+         xmlns="http://sourceforge.net"
+         xmlns:xsi="http://w3.org"
+         xsi:schemaLocation="http://sourceforge.net https://sourceforge.io">
+
+    <description>Reglas personalizadas de estilo de código.</description>
+
+    <!-- 1. Importa TODO el catálogo de codestyle -->
+    <rule ref="category/java/codestyle.xml">
+        <!-- 2. Pero aquí dentro excluimos o modificamos la que queremos -->
+        <exclude name="ShortVariable"/>
+        <exclude name="LongVariable"/>
+        <exclude name="AtLeastOneConstructor"/>
+    </rule>
+
+    <!-- 3. Definimos de nuevo la regla con tu tamaño personalizado (ej: 2) -->
+    <rule ref="category/java/codestyle.xml/ShortVariable">
+        <properties>
+            <property name="minimum" value="2"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="50" />
+        </properties>
+    </rule>
+
+</ruleset>

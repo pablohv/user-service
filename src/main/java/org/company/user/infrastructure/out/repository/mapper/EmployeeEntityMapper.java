@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeEntityMapper {
 
-    public EmployeeEntity employeeToEntity(Employee employee) {
+    public EmployeeEntity employeeToEntity(final Employee employee) {
         return EmployeeEntity.builder()
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
@@ -23,8 +23,8 @@ public class EmployeeEntityMapper {
                 .build();
     }
 
-    public Employee entityToEmploy(EmployeeEntity entity) {
-        Employee employee = new Employee();
+    public Employee entityToEmploy(final EmployeeEntity entity) {
+        final Employee employee = new Employee();
 
         employee.setFirstName(entity.getFirstName());
         employee.setLastName(entity.getLastName());

@@ -5,6 +5,7 @@ plugins {
 
     id("jacoco")
     id("com.github.spotbugs") version "6.2.4"
+    id("com.diffplug.spotless") version "7.2.1"
     id("org.owasp.dependencycheck") version "12.1.8"
     pmd
 }
@@ -151,12 +152,22 @@ tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
 
 pmd {
     toolVersion = "7.13.0"
+
     ruleSets = listOf(
         "category/java/bestpractices.xml",
         "category/java/errorprone.xml",
-        "category/java/performance.xml",
-        "category/java/codestyle.xml"
+        "category/java/performance.xml"
+        //"category/java/codestyle.xml" -> se elimina y se agrega en el archivo .xml
     )
+
+    // Añadimos tu archivo personalizado que gestiona y modifica codestyle
+    ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
+}
+
+spotless {
+    java {
+        removeUnusedImports()
+    }
 }
 
 dependencyCheck {

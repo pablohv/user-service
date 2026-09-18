@@ -11,7 +11,7 @@ public class MessageProvider {
 
     private final MessageSource messageSource;
 
-    public String getMessage(String key, Object... args) {
+    public String getMessage(final String key, final Object... args) {
         return messageSource.getMessage(
                 key,
                 args,
