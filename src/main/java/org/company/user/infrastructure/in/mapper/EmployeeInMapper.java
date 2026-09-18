@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeInMapper {
 
-    public Employee toDomain(EmployerRequest employeeRequest) {
-        Employee employee = new Employee();
+    public Employee toDomain(final EmployerRequest employeeRequest) {
+        final Employee employee = new Employee();
 
         employee.setFirstName(employeeRequest.getFirstName());
         employee.setLastName(employeeRequest.getLastName());
@@ -27,8 +27,8 @@ public class EmployeeInMapper {
         return employee;
     }
 
-    public EmployeeValidation toDomain(EmployeeValidateRequest employeeValidateRequest) {
-        EmployeeValidation employee = new EmployeeValidation();
+    public EmployeeValidation toDomain(final EmployeeValidateRequest employeeValidateRequest) {
+        final EmployeeValidation employee = new EmployeeValidation();
 
         employee.setEmail(employeeValidateRequest.getEmail());
         employee.setPassword(employeeValidateRequest.getPassword());

@@ -1,12 +1,25 @@
 package org.company.user.domain.exception;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+
+import java.io.Serial;
 
 @Getter
-@RequiredArgsConstructor
 public class EmployeeException extends RuntimeException {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final ErrorCode errorCode;
+
+    public EmployeeException(final ErrorCode errorCode, final Throwable cause) {
+        super(cause.getMessage(), cause);
+        this.errorCode = errorCode;
+    }
+
+    public EmployeeException(final ErrorCode errorCode) {
+        super();
+        this.errorCode = errorCode;
+    }
 
 }

@@ -27,7 +27,7 @@ public class EmployerController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> saveEmployee(@RequestBody @Valid EmployerRequest employerRequest) {
+    public ResponseEntity<?> saveEmployee(@RequestBody @Valid final EmployerRequest employerRequest) {
         employeeUseCasePort.create(employeeInMapper.toDomain(employerRequest));
         return ResponseEntity.ok().build();
     }
@@ -38,7 +38,7 @@ public class EmployerController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> validateEmployee(@RequestBody @Valid EmployeeValidateRequest employeeValidateRequest) {
+    public ResponseEntity<?> validateEmployee(@RequestBody @Valid final EmployeeValidateRequest employeeValidateRequest) {
         employeeUseCasePort.validateEmployee(employeeInMapper.toDomain(employeeValidateRequest));
         return ResponseEntity.ok().build();
     }
