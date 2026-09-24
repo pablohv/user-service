@@ -1,5 +1,6 @@
-package org.company.user.factorymodel;
+package org.company.user.factory.model;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.company.user.domain.model.Employee;
 import org.company.user.domain.model.EmployeeValidation;
 import org.company.user.infrastructure.in.request.EmployeeValidateRequest;
@@ -7,13 +8,17 @@ import org.company.user.infrastructure.in.request.EmployerRequest;
 
 public class ModelFactory {
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Password fake"
+    )
     public static EmployerRequest createEmployerRq() {
-        EmployerRequest employee = new EmployerRequest();
+        final EmployerRequest employee = new EmployerRequest();
 
         employee.setFirstName("Juan");
         employee.setLastName("Pérez");
-        employee.setEmail("juan.perez@email.com");
-        employee.setPassword("Password123");
+        employee.setEmail("juan.perez1@email.com");
+        employee.setPassword("Password1231");
         employee.setPhone("5512345678");
 
         employee.setState("Ciudad de México");
@@ -27,22 +32,30 @@ public class ModelFactory {
         return employee;
     }
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Password fake"
+    )
     public static EmployeeValidateRequest createEmployeeValidateRq() {
-        EmployeeValidateRequest employee = new EmployeeValidateRequest();
+        final EmployeeValidateRequest employee = new EmployeeValidateRequest();
 
         employee.setEmail("juan.perez@email.com");
-        employee.setPassword("Password123");
+        employee.setPassword("Password1232");
 
         return employee;
     }
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Password fake"
+    )
     public static Employee createEmployee() {
-        Employee employee = new Employee();
+        final Employee employee = new Employee();
 
         employee.setFirstName("Juan");
         employee.setLastName("Pérez");
-        employee.setEmail("juan.perez@email.com");
-        employee.setPassword("Password123");
+        employee.setEmail("juan.perez2@email.com");
+        employee.setPassword("Password1233");
         employee.setPhone("5512345678");
 
         employee.setState("Ciudad de México");
@@ -56,10 +69,16 @@ public class ModelFactory {
         return employee;
     }
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Password fake"
+    )
     public static EmployeeValidation createEmployeeValidation() {
-        EmployeeValidation employeeValidation = new EmployeeValidation();
-        employeeValidation.setEmail("juan.perez@email.com");
+        final EmployeeValidation employeeValidation = new EmployeeValidation();
+
+        employeeValidation.setEmail("juan.perez3@email.com");
         employeeValidation.setPassword("Password123");
+
         return employeeValidation;
     }
 

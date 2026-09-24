@@ -12,8 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.company.user.factorymodel.ModelFactory.createEmployeeValidateRq;
-import static org.company.user.factorymodel.ModelFactory.createEmployerRq;
+import static org.company.user.factory.model.ModelFactory.createEmployeeValidateRq;
+import static org.company.user.factory.model.ModelFactory.createEmployerRq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
