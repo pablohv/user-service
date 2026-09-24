@@ -11,12 +11,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import static org.company.user.factorymodel.ModelFactory.createEmployee;
+import static org.company.user.factory.model.ModelFactory.createEmployee;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("PMD.UnitTestAssertionsShouldIncludeMessage")
 @ExtendWith(MockitoExtension.class)
 class EmployeeRepositoryAdapterTest {
 
@@ -42,7 +43,7 @@ class EmployeeRepositoryAdapterTest {
         when(employeeEntityMapper.employeeToEntity(any())).thenReturn(EmployeeEntity.builder().build());
         when(employeeJpaRepository.save(any())).thenThrow(new DataIntegrityViolationException("DataIntegrityViolationException"));
 
-        EmployeeException employeeException = assertThrows(EmployeeException.class, () -> employeeRepositoryAdapter.saveEmployee(createEmployee()));
+        final EmployeeException employeeException = assertThrows(EmployeeException.class, () -> employeeRepositoryAdapter.saveEmployee(createEmployee()));
         assertEquals(ErrorCode.EMPLOYEE_EMAIL_ALREADY_EXISTS, employeeException.getErrorCode());
         verify(employeeJpaRepository, times(1)).save(any());
     }

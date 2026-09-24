@@ -14,6 +14,11 @@
         <exclude name="AtLeastOneConstructor"/>
     </rule>
 
+    <rule ref="category/java/bestpractices.xml">
+        <!-- 2. Pero aquí dentro excluimos o modificamos la que queremos -->
+        <exclude name="UnitTestContainsTooManyAsserts"/>
+    </rule>
+
     <!-- 3. Definimos de nuevo la regla con tu tamaño personalizado (ej: 2) -->
     <rule ref="category/java/codestyle.xml/ShortVariable">
         <properties>
@@ -24,6 +29,20 @@
     <rule ref="category/java/codestyle.xml/LongVariable">
         <properties>
             <property name="minimum" value="50" />
+        </properties>
+    </rule>
+
+    <!-- Test -->
+    <rule ref="category/java/codestyle.xml/TooManyStaticImports">
+        <properties>
+            <property name="maximumStaticImports" value="99" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/UnitTestContainsTooManyAsserts">
+        <properties>
+            <property name="maximumAsserts" value="10" />
+            <property name="extraAssertMethodNames" value="" />
         </properties>
     </rule>
 

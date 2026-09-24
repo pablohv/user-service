@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.company.user.factorymodel.ModelFactory.createEmployee;
-import static org.company.user.factorymodel.ModelFactory.createEmployeeValidation;
+import static org.company.user.factory.model.ModelFactory.createEmployee;
+import static org.company.user.factory.model.ModelFactory.createEmployeeValidation;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

@@ -13,14 +13,14 @@ class UtilDateTest {
 
     @Test
     void validateDateWhenDateIsCorrect() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
         assertDoesNotThrow(() -> LocalDateTime.parse(UtilDate.getCurrentDate(), formatter));
     }
 
     @Test
     void validateDateWhenDateIsNotCorrect() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss:ss");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss:ss");
 
         assertThrows(DateTimeParseException.class, () -> LocalDateTime.parse(UtilDate.getCurrentDate(), formatter));
     }

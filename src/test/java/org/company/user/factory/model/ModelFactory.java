@@ -1,4 +1,4 @@
-package org.company.user.factorymodel;
+package org.company.user.factory.model;
 
 import org.company.user.domain.model.Employee;
 import org.company.user.domain.model.EmployeeValidation;
@@ -8,12 +8,12 @@ import org.company.user.infrastructure.in.request.EmployerRequest;
 public class ModelFactory {
 
     public static EmployerRequest createEmployerRq() {
-        EmployerRequest employee = new EmployerRequest();
+        final EmployerRequest employee = new EmployerRequest();
 
         employee.setFirstName("Juan");
         employee.setLastName("Pérez");
-        employee.setEmail("juan.perez@email.com");
-        employee.setPassword("Password123");
+        employee.setEmail("juan.perez1@email.com");
+        employee.setPassword("Password1231");
         employee.setPhone("5512345678");
 
         employee.setState("Ciudad de México");
@@ -28,21 +28,21 @@ public class ModelFactory {
     }
 
     public static EmployeeValidateRequest createEmployeeValidateRq() {
-        EmployeeValidateRequest employee = new EmployeeValidateRequest();
+        final EmployeeValidateRequest employee = new EmployeeValidateRequest();
 
         employee.setEmail("juan.perez@email.com");
-        employee.setPassword("Password123");
+        employee.setPassword("Password1232");
 
         return employee;
     }
 
     public static Employee createEmployee() {
-        Employee employee = new Employee();
+        final Employee employee = new Employee();
 
         employee.setFirstName("Juan");
         employee.setLastName("Pérez");
-        employee.setEmail("juan.perez@email.com");
-        employee.setPassword("Password123");
+        employee.setEmail("juan.perez2@email.com");
+        employee.setPassword("Password1233");
         employee.setPhone("5512345678");
 
         employee.setState("Ciudad de México");
@@ -57,9 +57,11 @@ public class ModelFactory {
     }
 
     public static EmployeeValidation createEmployeeValidation() {
-        EmployeeValidation employeeValidation = new EmployeeValidation();
-        employeeValidation.setEmail("juan.perez@email.com");
+        final EmployeeValidation employeeValidation = new EmployeeValidation();
+
+        employeeValidation.setEmail("juan.perez3@email.com");
         employeeValidation.setPassword("Password123");
+
         return employeeValidation;
     }
 
