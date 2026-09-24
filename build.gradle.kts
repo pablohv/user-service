@@ -25,6 +25,8 @@ repositories {
 
 dependencies {
 
+    implementation("com.github.spotbugs:spotbugs-annotations:4.9.8")
+
     implementation("org.springframework.security:spring-security-crypto")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
@@ -45,6 +47,7 @@ dependencies {
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testAnnotationProcessor("org.projectlombok:lombok")
+
 
     spotbugs("com.github.spotbugs:spotbugs:4.9.8")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")

@@ -1,5 +1,6 @@
 package org.company.user.factory.model;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.company.user.domain.model.Employee;
 import org.company.user.domain.model.EmployeeValidation;
 import org.company.user.infrastructure.in.request.EmployeeValidateRequest;
@@ -7,6 +8,10 @@ import org.company.user.infrastructure.in.request.EmployerRequest;
 
 public class ModelFactory {
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+    )
     public static EmployerRequest createEmployerRq() {
         final EmployerRequest employee = new EmployerRequest();
 
@@ -27,6 +32,10 @@ public class ModelFactory {
         return employee;
     }
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+    )
     public static EmployeeValidateRequest createEmployeeValidateRq() {
         final EmployeeValidateRequest employee = new EmployeeValidateRequest();
 
@@ -36,6 +45,10 @@ public class ModelFactory {
         return employee;
     }
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+    )
     public static Employee createEmployee() {
         final Employee employee = new Employee();
 
@@ -56,6 +69,10 @@ public class ModelFactory {
         return employee;
     }
 
+    @SuppressFBWarnings(
+            value = "HARD_CODE_PASSWORD",
+            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+    )
     public static EmployeeValidation createEmployeeValidation() {
         final EmployeeValidation employeeValidation = new EmployeeValidation();
 
