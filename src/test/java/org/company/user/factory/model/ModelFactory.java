@@ -10,7 +10,7 @@ public class ModelFactory {
 
     @SuppressFBWarnings(
             value = "HARD_CODE_PASSWORD",
-            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+            justification = "Password fake"
     )
     public static EmployerRequest createEmployerRq() {
         final EmployerRequest employee = new EmployerRequest();
@@ -34,7 +34,7 @@ public class ModelFactory {
 
     @SuppressFBWarnings(
             value = "HARD_CODE_PASSWORD",
-            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+            justification = "Password fake"
     )
     public static EmployeeValidateRequest createEmployeeValidateRq() {
         final EmployeeValidateRequest employee = new EmployeeValidateRequest();
@@ -47,7 +47,7 @@ public class ModelFactory {
 
     @SuppressFBWarnings(
             value = "HARD_CODE_PASSWORD",
-            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+            justification = "Password fake"
     )
     public static Employee createEmployee() {
         final Employee employee = new Employee();
@@ -71,7 +71,7 @@ public class ModelFactory {
 
     @SuppressFBWarnings(
             value = "HARD_CODE_PASSWORD",
-            justification = "Contraseña ficticia utilizada únicamente para pruebas"
+            justification = "Password fake"
     )
     public static EmployeeValidation createEmployeeValidation() {
         final EmployeeValidation employeeValidation = new EmployeeValidation();
