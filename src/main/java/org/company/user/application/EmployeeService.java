@@ -7,7 +7,7 @@ import org.company.user.application.port.out.PasswordHash;
 import org.company.user.domain.exception.EmployeeException;
 import org.company.user.domain.exception.ErrorCode;
 import org.company.user.domain.model.Employee;
-import org.company.user.domain.model.EmployeeValidation;
+import org.company.user.domain.model.EmployeeCredentials;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,12 +25,15 @@ public class EmployeeService implements EmployeeUseCasePort {
     }
 
     @Override
-    public void validateEmployee(final EmployeeValidation employeeValidate) {
-        final Employee employee = employeeRepository.findByEmail(employeeValidate.getEmail());
-
-        if (!passwordHash.checkPassword(employeeValidate.getPassword(), employee.getPassword())) {
-            throw new EmployeeException(ErrorCode.EMPLOYEE_INVALID_CREDENTIALS);
-        }
+    public void validateEmployee(final EmployeeCredentials employeeValidate) {
+        employeeRepository.findByEmail(employeeValidate.getEmail())
+                .ifPresentOrElse(employee -> {
+                    if (!passwordHash.checkPassword(employeeValidate.getPassword(), employee.getPassword())) {
+                        throw new EmployeeException(ErrorCode.EMPLOYEE_INVALID_CREDENTIALS);
+                    }
+                }, () -> {
+                    throw new EmployeeException(ErrorCode.EMPLOYEE_INVALID_CREDENTIALS);
+                });
     }
 
 }

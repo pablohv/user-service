@@ -2,8 +2,8 @@ package org.company.user.factory.model;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.company.user.domain.model.Employee;
-import org.company.user.domain.model.EmployeeValidation;
-import org.company.user.infrastructure.in.request.EmployeeValidateRequest;
+import org.company.user.domain.model.EmployeeCredentials;
+import org.company.user.infrastructure.in.request.EmployeeCredentialsRequest;
 import org.company.user.infrastructure.in.request.EmployerRequest;
 
 public class ModelFactory {
@@ -36,8 +36,8 @@ public class ModelFactory {
             value = "HARD_CODE_PASSWORD",
             justification = "Password fake"
     )
-    public static EmployeeValidateRequest createEmployeeValidateRq() {
-        final EmployeeValidateRequest employee = new EmployeeValidateRequest();
+    public static EmployeeCredentialsRequest createEmployeeValidateRq() {
+        final EmployeeCredentialsRequest employee = new EmployeeCredentialsRequest();
 
         employee.setEmail("juan.perez@email.com");
         employee.setPassword("Password1232");
@@ -73,13 +73,13 @@ public class ModelFactory {
             value = "HARD_CODE_PASSWORD",
             justification = "Password fake"
     )
-    public static EmployeeValidation createEmployeeValidation() {
-        final EmployeeValidation employeeValidation = new EmployeeValidation();
+    public static EmployeeCredentials createEmployeeValidation() {
+        final EmployeeCredentials employeeCredentials = new EmployeeCredentials();
 
-        employeeValidation.setEmail("juan.perez3@email.com");
-        employeeValidation.setPassword("Password123");
+        employeeCredentials.setEmail("juan.perez3@email.com");
+        employeeCredentials.setPassword("Password123");
 
-        return employeeValidation;
+        return employeeCredentials;
     }
 
 }

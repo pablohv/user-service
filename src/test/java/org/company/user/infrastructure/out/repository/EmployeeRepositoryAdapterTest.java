@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import java.util.Optional;
+
 import static org.company.user.factory.model.ModelFactory.createEmployee;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -51,7 +53,7 @@ class EmployeeRepositoryAdapterTest {
     @Test
     void findEmployeeEntityWhenIsOk() {
         when(employeeJpaRepository.findByEmail(anyString())).thenReturn(EmployeeEntity.builder().build());
-        when(employeeEntityMapper.entityToEmploy(any())).thenReturn(createEmployee());
+        when(employeeEntityMapper.entityToEmploy(any())).thenReturn(Optional.of(createEmployee()));
 
         employeeRepositoryAdapter.findByEmail("juan.perez@email.com");
         verify(employeeJpaRepository, times(1)).findByEmail(anyString());

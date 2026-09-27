@@ -4,6 +4,8 @@ import org.company.user.domain.model.Employee;
 import org.company.user.infrastructure.out.repository.entity.EmployeeEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class EmployeeEntityMapper {
 
@@ -23,7 +25,11 @@ public class EmployeeEntityMapper {
                 .build();
     }
 
-    public Employee entityToEmploy(final EmployeeEntity entity) {
+    public Optional<Employee> entityToEmploy(final EmployeeEntity entity) {
+        if (entity == null){
+            return Optional.empty();
+        }
+
         final Employee employee = new Employee();
 
         employee.setFirstName(entity.getFirstName());
@@ -38,7 +44,7 @@ public class EmployeeEntityMapper {
         employee.setCountry(entity.getCountry());
         employee.setNationality(entity.getNationality());
 
-        return employee;
+        return Optional.of(employee);
     }
 
 }

@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeValidateRequest {
+public class EmployeeCredentialsRequest {
 
-    @NotBlank
+    @NotBlank(message = "VALIDATION_EMAIL_MUST_NOT_BE_BLANK")
     private String email;
 
     @Size(min = 8, max = 20, message = "VALIDATION_PASSWORD_SIZE")

@@ -1,8 +1,8 @@
 package org.company.user.infrastructure.in.mapper;
 
 import org.company.user.domain.model.Employee;
-import org.company.user.domain.model.EmployeeValidation;
-import org.company.user.infrastructure.in.request.EmployeeValidateRequest;
+import org.company.user.domain.model.EmployeeCredentials;
+import org.company.user.infrastructure.in.request.EmployeeCredentialsRequest;
 import org.company.user.infrastructure.in.request.EmployerRequest;
 import org.springframework.stereotype.Component;
 
@@ -27,11 +27,11 @@ public class EmployeeInMapper {
         return employee;
     }
 
-    public EmployeeValidation toDomain(final EmployeeValidateRequest employeeValidateRequest) {
-        final EmployeeValidation employee = new EmployeeValidation();
+    public EmployeeCredentials toDomain(final EmployeeCredentialsRequest employeeCredentialsRequest) {
+        final EmployeeCredentials employee = new EmployeeCredentials();
 
-        employee.setEmail(employeeValidateRequest.getEmail());
-        employee.setPassword(employeeValidateRequest.getPassword());
+        employee.setEmail(employeeCredentialsRequest.getEmail());
+        employee.setPassword(employeeCredentialsRequest.getPassword());
 
         return employee;
     }

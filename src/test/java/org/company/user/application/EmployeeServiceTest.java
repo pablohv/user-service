@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.company.user.factory.model.ModelFactory.createEmployee;
 import static org.company.user.factory.model.ModelFactory.createEmployeeValidation;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,7 +41,7 @@ class EmployeeServiceTest {
 
     @Test
     void validateEmployeeWhenPasswordIsOk() {
-        when(employeeRepository.findByEmail(anyString())).thenReturn(createEmployee());
+        when(employeeRepository.findByEmail(anyString())).thenReturn(Optional.of(createEmployee()));
         when(passwordHash.checkPassword(anyString(), anyString())).thenReturn(true);
 
         employeeService.validateEmployee(createEmployeeValidation());
@@ -47,7 +49,7 @@ class EmployeeServiceTest {
 
     @Test
     void validateEmployeeWhenPasswordIsWrong() {
-        when(employeeRepository.findByEmail(anyString())).thenReturn(createEmployee());
+        when(employeeRepository.findByEmail(anyString())).thenReturn(Optional.of(createEmployee()));
         when(passwordHash.checkPassword(anyString(), anyString())).thenReturn(false);
 
         assertThrows(EmployeeException.class, () -> employeeService.validateEmployee(createEmployeeValidation()));

@@ -2,9 +2,9 @@ package org.company.user.infrastructure.in;
 
 import org.company.user.application.port.in.EmployeeUseCasePort;
 import org.company.user.domain.model.Employee;
-import org.company.user.domain.model.EmployeeValidation;
+import org.company.user.domain.model.EmployeeCredentials;
 import org.company.user.infrastructure.in.mapper.EmployeeInMapper;
-import org.company.user.infrastructure.in.request.EmployeeValidateRequest;
+import org.company.user.infrastructure.in.request.EmployeeCredentialsRequest;
 import org.company.user.infrastructure.in.request.EmployerRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,11 +40,11 @@ class EmployerControllerTest {
 
     @Test
     void validateEmployeeWhenIsOK() {
-        when(employeeInMapper.toDomain(any(EmployeeValidateRequest.class))).thenReturn(new EmployeeValidation());
-        doNothing().when(employeeUseCasePort).validateEmployee(any(EmployeeValidation.class));
+        when(employeeInMapper.toDomain(any(EmployeeCredentialsRequest.class))).thenReturn(new EmployeeCredentials());
+        doNothing().when(employeeUseCasePort).validateEmployee(any(EmployeeCredentials.class));
 
         employerController.validateEmployee(createEmployeeValidateRq());
-        verify(employeeUseCasePort, times(1)).validateEmployee(any(EmployeeValidation.class));
+        verify(employeeUseCasePort, times(1)).validateEmployee(any(EmployeeCredentials.class));
     }
 
 }

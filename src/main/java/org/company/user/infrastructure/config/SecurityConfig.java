@@ -16,7 +16,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/**")
-                                .hasAuthority("SCOPE_user-service.write")
+                                .hasAuthority("SCOPE_user-service.read")
                                 .anyRequest()
                                 .authenticated()
                 )

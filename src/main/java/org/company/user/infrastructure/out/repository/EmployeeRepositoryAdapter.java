@@ -9,6 +9,8 @@ import org.company.user.infrastructure.out.repository.mapper.EmployeeEntityMappe
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class EmployeeRepositoryAdapter implements EmployeeRepository {
@@ -26,7 +28,7 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     }
 
     @Override
-    public Employee findByEmail(final String email) {
+    public Optional<Employee> findByEmail(final String email) {
         return employeeEntityMapper.entityToEmploy(employeeJpaRepository.findByEmail(email));
     }
 

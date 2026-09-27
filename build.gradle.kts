@@ -25,8 +25,6 @@ repositories {
 
 dependencies {
 
-    implementation("com.github.spotbugs:spotbugs-annotations:4.9.8")
-
     implementation("org.springframework.security:spring-security-crypto")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
@@ -48,6 +46,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testAnnotationProcessor("org.projectlombok:lombok")
 
+    implementation("com.github.spotbugs:spotbugs-annotations:4.9.8")
 
     spotbugs("com.github.spotbugs:spotbugs:4.9.8")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
@@ -161,11 +160,11 @@ pmd {
     ruleSets = listOf(
         "category/java/performance.xml"
         //"category/java/errorprone.xml"
-        //"category/java/bestpractices.xml" -> se elimina y se agrega en el archivo .xml
-        //"category/java/codestyle.xml" -> se elimina y se agrega en el archivo .xml
+        //"category/java/bestpractices.xml"
+        //"category/java/codestyle.xml"
     )
 
-    // Añadimos tu archivo personalizado que gestiona y modifica codestyle
+    // Añadir archivo personalizado
     ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
 }
 

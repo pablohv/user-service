@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.company.user.application.port.in.EmployeeUseCasePort;
 import org.company.user.infrastructure.in.mapper.EmployeeInMapper;
-import org.company.user.infrastructure.in.request.EmployeeValidateRequest;
+import org.company.user.infrastructure.in.request.EmployeeCredentialsRequest;
 import org.company.user.infrastructure.in.request.EmployerRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class EmployerController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> saveEmployee(@RequestBody @Valid final EmployerRequest employerRequest) {
+    public ResponseEntity<Void> saveEmployee(@RequestBody @Valid final EmployerRequest employerRequest) {
         employeeUseCasePort.create(employeeInMapper.toDomain(employerRequest));
         return ResponseEntity.ok().build();
     }
@@ -38,8 +38,8 @@ public class EmployerController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> validateEmployee(@RequestBody @Valid final EmployeeValidateRequest employeeValidateRequest) {
-        employeeUseCasePort.validateEmployee(employeeInMapper.toDomain(employeeValidateRequest));
+    public ResponseEntity<Void> validateEmployee(@RequestBody @Valid final EmployeeCredentialsRequest employeeCredentialsRequest) {
+        employeeUseCasePort.validateEmployee(employeeInMapper.toDomain(employeeCredentialsRequest));
         return ResponseEntity.ok().build();
     }
 
