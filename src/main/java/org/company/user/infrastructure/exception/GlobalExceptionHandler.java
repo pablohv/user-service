@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EmployeeException.class)
-    public ResponseEntity<?> handleEmployeeException(final EmployeeException ex) {
+    public ResponseEntity<ValidationErrorResponse> handleEmployeeException(final EmployeeException ex) {
 
         final String message = messageProvider.getMessage(ex.getErrorCode().name());
 

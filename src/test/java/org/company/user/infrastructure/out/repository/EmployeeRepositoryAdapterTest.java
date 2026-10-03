@@ -41,6 +41,7 @@ class EmployeeRepositoryAdapterTest {
     }
 
     @Test
+    @SuppressWarnings("java:S5778")
     void saveEmployeeEntityWhenIsNotOk() {
         when(employeeEntityMapper.employeeToEntity(any())).thenReturn(EmployeeEntity.builder().build());
         when(employeeJpaRepository.save(any())).thenThrow(new DataIntegrityViolationException("DataIntegrityViolationException"));

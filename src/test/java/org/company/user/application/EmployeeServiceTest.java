@@ -48,6 +48,7 @@ class EmployeeServiceTest {
     }
 
     @Test
+    @SuppressWarnings("java:S5778")
     void validateEmployeeWhenPasswordIsWrong() {
         when(employeeRepository.findByEmail(anyString())).thenReturn(Optional.of(createEmployee()));
         when(passwordHash.checkPassword(anyString(), anyString())).thenReturn(false);

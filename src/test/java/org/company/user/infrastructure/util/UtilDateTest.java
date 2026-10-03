@@ -19,6 +19,7 @@ class UtilDateTest {
     }
 
     @Test
+    @SuppressWarnings("java:S5778")
     void validateDateWhenDateIsNotCorrect() {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss:ss");
 

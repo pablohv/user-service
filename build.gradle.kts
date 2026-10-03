@@ -7,6 +7,8 @@ plugins {
     id("com.github.spotbugs") version "6.2.4"
     id("com.diffplug.spotless") version "7.2.1"
     pmd
+
+    id ("org.sonarqube") version "6.0.1.5171"
 }
 
 group = "org.company"
@@ -132,6 +134,18 @@ tasks.jacocoTestCoverageVerification {
 
 tasks.check {
     dependsOn(tasks.jacocoTestCoverageVerification)
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "user-service")
+        property("sonar.host.url", "http://localhost:9001")
+
+        property(
+            "sonar.coverage.jacoco.xmlReportPaths",
+            "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
+        )
+    }
 }
 
 spotbugs {
