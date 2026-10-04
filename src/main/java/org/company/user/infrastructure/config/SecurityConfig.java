@@ -2,7 +2,9 @@ package org.company.user.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @SuppressWarnings("PMD.MethodArgumentCouldBeFinal")
@@ -14,8 +16,11 @@ public class SecurityConfig {
             HttpSecurity http
     ) {
 
-        http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/**")
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers(HttpMethod.POST, "**/registry")
+                                .hasAuthority("SCOPE_user-service.write")
+                                .requestMatchers(HttpMethod.POST, "**/validate")
                                 .hasAuthority("SCOPE_user-service.read")
                                 .anyRequest()
                                 .authenticated()
