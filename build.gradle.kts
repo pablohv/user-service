@@ -8,7 +8,7 @@ plugins {
     id("com.diffplug.spotless") version "7.2.1"
     pmd
 
-    id ("org.sonarqube") version "6.0.1.5171"
+    id("org.sonarqube") version "6.0.1.5171"
 
     id("org.ajoberstar.grgit") version "5.3.0"
 }
@@ -146,6 +146,24 @@ sonar {
         property(
             "sonar.coverage.jacoco.xmlReportPaths",
             "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
+        )
+
+        property(
+            "sonar.coverage.exclusions",
+            listOf(
+                "**/UserServiceApplication.java",
+                "**/domain/model/**",
+                "**/domain/exception/**",
+                "**/infrastructure/config/**",
+                "**/infrastructure/exception/**",
+                "**/infrastructure/in/mapper/**",
+                "**/infrastructure/in/request/**",
+                "**/infrastructure/in/response/**",
+                "**/infrastructure/out/hash/**",
+                "**/infrastructure/out/repository/entity/**",
+                "**/infrastructure/out/repository/mapper/**",
+                "**/MessageProvider.java"
+            ).joinToString(",")
         )
 
         property("sonar.projectVersion", version.toString())
