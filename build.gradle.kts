@@ -9,10 +9,12 @@ plugins {
     pmd
 
     id ("org.sonarqube") version "6.0.1.5171"
+
+    id("org.ajoberstar.grgit") version "5.3.0"
 }
 
 group = "org.company"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0-${grgit.head().abbreviatedId}"
 description = "user-service"
 
 java {
@@ -145,6 +147,8 @@ sonar {
             "sonar.coverage.jacoco.xmlReportPaths",
             "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
         )
+
+        property("sonar.projectVersion", version.toString())
     }
 }
 
