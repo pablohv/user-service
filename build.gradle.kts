@@ -10,11 +10,12 @@ plugins {
 
     id("org.sonarqube") version "6.0.1.5171"
 
+    // Obtener info de GIT
     id("org.ajoberstar.grgit") version "5.3.0"
 }
 
 group = "org.company"
-version = "1.0.0-${grgit.head().abbreviatedId}"
+version = "1.0.0-${grgit.head().abbreviatedId}" //por cada commit se crea una version diferente
 description = "user-service"
 
 java {
