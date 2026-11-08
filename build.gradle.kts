@@ -44,13 +44,17 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testCompileOnly("org.projectlombok:lombok")
-
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testAnnotationProcessor("org.projectlombok:lombok")
 
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+    testAnnotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
+    implementation("org.mapstruct:mapstruct:1.6.3")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("com.github.spotbugs:spotbugs-annotations:4.9.8")
 
     spotbugs("com.github.spotbugs:spotbugs:4.9.8")
@@ -195,7 +199,9 @@ pmd {
     toolVersion = "7.13.0"
 
     ruleSets = listOf(
-        "category/java/performance.xml"
+        "category/java/performance.xml",
+        "category/java/security.xml",
+        "category/java/design.xml",
         //"category/java/errorprone.xml"
         //"category/java/bestpractices.xml"
         //"category/java/codestyle.xml"
