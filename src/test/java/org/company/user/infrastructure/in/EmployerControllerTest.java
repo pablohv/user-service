@@ -12,8 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.company.user.factory.model.ModelFactory.createEmployeeValidateRq;
-import static org.company.user.factory.model.ModelFactory.createEmployerRq;
+import static org.company.user.factory.model.ModelFactory.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -31,7 +30,7 @@ class EmployerControllerTest {
 
     @Test
     void saveEmployeeWhenIsOK() {
-        when(employeeInMapper.toDomain(any(EmployerRequest.class))).thenReturn(new Employee());
+        when(employeeInMapper.toDomain(any(EmployerRequest.class))).thenReturn(createEmployee());
         doNothing().when(employeeUseCasePort).create(any(Employee.class));
 
         employerController.saveEmployee(createEmployerRq());
@@ -40,7 +39,7 @@ class EmployerControllerTest {
 
     @Test
     void validateEmployeeWhenIsOK() {
-        when(employeeInMapper.toDomain(any(EmployeeCredentialsRequest.class))).thenReturn(new EmployeeCredentials());
+        when(employeeInMapper.toDomain(any(EmployeeCredentialsRequest.class))).thenReturn(createEmployeeValidation());
         doNothing().when(employeeUseCasePort).validateEmployee(any(EmployeeCredentials.class));
 
         employerController.validateEmployee(createEmployeeValidateRq());

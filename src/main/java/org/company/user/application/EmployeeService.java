@@ -19,16 +19,16 @@ public class EmployeeService implements EmployeeUseCasePort {
 
     @Override
     public void create(final Employee employee) {
-        final String hash = passwordHash.hash(employee.getPassword());
-        employee.setPassword(hash);
-        employeeRepository.saveEmployee(employee);
+        final String hash = passwordHash.hash(employee.password());
+        final Employee securedEmployee = employee.withPassword(hash);
+        employeeRepository.saveEmployee(securedEmployee);
     }
 
     @Override
     public void validateEmployee(final EmployeeCredentials employeeValidate) {
-        employeeRepository.findByEmail(employeeValidate.getEmail())
+        employeeRepository.findByEmail(employeeValidate.email())
                 .ifPresentOrElse(employee -> {
-                    if (!passwordHash.checkPassword(employeeValidate.getPassword(), employee.getPassword())) {
+                    if (!passwordHash.checkPassword(employeeValidate.password(), employee.password())) {
                         throw new EmployeeException(ErrorCode.EMPLOYEE_INVALID_CREDENTIALS);
                     }
                 }, () -> {

@@ -4,36 +4,13 @@ import org.company.user.domain.model.Employee;
 import org.company.user.domain.model.EmployeeCredentials;
 import org.company.user.infrastructure.in.request.EmployeeCredentialsRequest;
 import org.company.user.infrastructure.in.request.EmployerRequest;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
-@Component
-public class EmployeeInMapper {
+@Mapper(componentModel = "spring")
+public interface EmployeeInMapper {
 
-    public Employee toDomain(final EmployerRequest employeeRequest) {
-        final Employee employee = new Employee();
+    Employee toDomain(EmployerRequest employeeRequest);
 
-        employee.setFirstName(employeeRequest.getFirstName());
-        employee.setLastName(employeeRequest.getLastName());
-        employee.setEmail(employeeRequest.getEmail());
-        employee.setPassword(employeeRequest.getPassword());
-        employee.setPhone(employeeRequest.getPhone());
-        employee.setState(employeeRequest.getState());
-        employee.setCity(employeeRequest.getCity());
-        employee.setCp(employeeRequest.getCp());
-        employee.setAddress(employeeRequest.getAddress());
-        employee.setCountry(employeeRequest.getCountry());
-        employee.setNationality(employeeRequest.getNationality());
-
-        return employee;
-    }
-
-    public EmployeeCredentials toDomain(final EmployeeCredentialsRequest employeeCredentialsRequest) {
-        final EmployeeCredentials employee = new EmployeeCredentials();
-
-        employee.setEmail(employeeCredentialsRequest.getEmail());
-        employee.setPassword(employeeCredentialsRequest.getPassword());
-
-        return employee;
-    }
+    EmployeeCredentials toDomain(EmployeeCredentialsRequest employeeCredentialsRequest);
 
 }

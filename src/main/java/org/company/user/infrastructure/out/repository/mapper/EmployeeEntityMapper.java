@@ -2,49 +2,23 @@ package org.company.user.infrastructure.out.repository.mapper;
 
 import org.company.user.domain.model.Employee;
 import org.company.user.infrastructure.out.repository.entity.EmployeeEntity;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
 import java.util.Optional;
 
-@Component
-public class EmployeeEntityMapper {
+@Mapper(componentModel = "spring")
+public interface EmployeeEntityMapper {
 
-    public EmployeeEntity employeeToEntity(final Employee employee) {
-        return EmployeeEntity.builder()
-                .firstName(employee.getFirstName())
-                .lastName(employee.getLastName())
-                .email(employee.getEmail())
-                .password(employee.getPassword())
-                .phone(employee.getPhone())
-                .state(employee.getState())
-                .city(employee.getCity())
-                .cp(employee.getCp())
-                .address(employee.getAddress())
-                .country(employee.getCountry())
-                .nationality(employee.getNationality())
-                .build();
-    }
+    EmployeeEntity employeeToEntity(Employee employee);
 
-    public Optional<Employee> entityToEmploy(final EmployeeEntity entity) {
-        if (entity == null){
+    Employee toDomain(EmployeeEntity entity);
+
+    default Optional<Employee> entityToEmploy(final EmployeeEntity entity) {
+        if (entity == null) {
             return Optional.empty();
         }
 
-        final Employee employee = new Employee();
-
-        employee.setFirstName(entity.getFirstName());
-        employee.setLastName(entity.getLastName());
-        employee.setEmail(entity.getEmail());
-        employee.setPassword(entity.getPassword());
-        employee.setPhone(entity.getPhone());
-        employee.setState(entity.getState());
-        employee.setCity(entity.getCity());
-        employee.setCp(entity.getCp());
-        employee.setAddress(entity.getAddress());
-        employee.setCountry(entity.getCountry());
-        employee.setNationality(entity.getNationality());
-
-        return Optional.of(employee);
+        return Optional.of(toDomain(entity));
     }
 
 }
