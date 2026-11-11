@@ -1,0 +1,18 @@
+// Exclusiones de cobertura compartidas por JaCoCo y Sonar (única fuente de verdad).
+// Debe aplicarse antes de quality-jacoco.gradle y quality-sonar.gradle.
+def excludedPackages = [
+    '**/domain/model/**',
+    '**/domain/exception/**',
+    '**/infrastructure/config/**',
+    '**/infrastructure/exception/**',
+    '**/infrastructure/in/mapper/**',
+    '**/infrastructure/in/request/**',
+    '**/infrastructure/in/response/**',
+    '**/infrastructure/out/hash/**',
+    '**/infrastructure/out/repository/entity/**',
+    '**/infrastructure/out/repository/mapper/**'
+]
+def excludedClasses = ['UserServiceApplication', 'MessageProvider']
+
+ext.jacocoExclusions = excludedPackages + excludedClasses.collect { "**/${it}.class".toString() }
+ext.sonarExclusions = excludedPackages + excludedClasses.collect { "**/${it}.java".toString() }

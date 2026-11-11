@@ -1,0 +1,39 @@
+// Cobertura de código con JaCoCo (umbral mínimo 80%)
+jacoco {
+    toolVersion = '0.8.13'
+}
+
+def excludeFromCoverage = { task ->
+    task.classDirectories.setFrom(
+        files(task.classDirectories.files.collect { fileTree(it) { exclude jacocoExclusions } })
+    )
+}
+
+tasks.named('test') {
+    finalizedBy 'jacocoTestReport'
+}
+
+tasks.named('jacocoTestReport') {
+    dependsOn 'test'
+    excludeFromCoverage(it)
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+}
+
+tasks.named('jacocoTestCoverageVerification') {
+    excludeFromCoverage(it)
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.80
+            }
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn 'jacocoTestCoverageVerification'
+}

@@ -1,0 +1,6 @@
+// Formato de código con Spotless
+spotless {
+    java {
+        removeUnusedImports()
+    }
+}

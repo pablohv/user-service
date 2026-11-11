@@ -3,11 +3,11 @@ plugins {
     id("org.springframework.boot") version "4.1.1"
     id("io.spring.dependency-management") version "1.1.7"
 
-    id("jacoco")
+    // Calidad de código
+    jacoco
+    pmd
     id("com.github.spotbugs") version "6.2.4"
     id("com.diffplug.spotless") version "7.2.1"
-    pmd
-
     id("org.sonarqube") version "6.0.1.5171"
 
     // Obtener info de GIT
@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "org.company"
-version = "1.0.0-${grgit.head().abbreviatedId}" //por cada commit se crea una version diferente
+version = "1.0.0-${grgit.head().abbreviatedId}" // por cada commit se crea una versión diferente
 description = "user-service"
 
 java {
@@ -28,191 +28,14 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-
-    implementation("org.springframework.security:spring-security-crypto")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-    runtimeOnly("com.mysql:mysql-connector-j")
-
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    testCompileOnly("org.projectlombok:lombok")
-    testAnnotationProcessor("org.projectlombok:lombok")
-
-    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-    testAnnotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-
-    implementation("org.mapstruct:mapstruct:1.6.3")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("com.github.spotbugs:spotbugs-annotations:4.9.8")
-
-    spotbugs("com.github.spotbugs:spotbugs:4.9.8")
-    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
-}
-
-tasks.test {
-    useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
-}
-
-jacoco {
-    toolVersion = "0.8.13"
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-
-    classDirectories.setFrom(
-        files(
-            classDirectories.files.map {
-                fileTree(it) {
-                    exclude(
-                        "**/UserServiceApplication.class",
-                        "**/domain/model/**",
-                        "**/domain/exception/**",
-                        "**/infrastructure/config/**",
-                        "**/infrastructure/exception/**",
-                        "**/infrastructure/in/mapper/**",
-                        "**/infrastructure/in/request/**",
-                        "**/infrastructure/in/response/**",
-                        "**/infrastructure/in/response/**",
-                        "**/infrastructure/out/hash/**",
-                        "**/infrastructure/out/repository/entity/**",
-                        "**/infrastructure/out/repository/mapper/**",
-                        "**/MessageProvider.class"
-                    )
-                }
-            }
-        )
-    )
-
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-        csv.required.set(false)
-    }
-}
-
-tasks.jacocoTestCoverageVerification {
-
-    classDirectories.setFrom(
-        files(
-            classDirectories.files.map {
-                fileTree(it) {
-                    exclude(
-                        "**/UserServiceApplication.class",
-                        "**/domain/model/**",
-                        "**/domain/exception/**",
-                        "**/infrastructure/config/**",
-                        "**/infrastructure/exception/**",
-                        "**/infrastructure/in/mapper/**",
-                        "**/infrastructure/in/request/**",
-                        "**/infrastructure/in/response/**",
-                        "**/infrastructure/in/response/**",
-                        "**/infrastructure/out/hash/**",
-                        "**/infrastructure/out/repository/entity/**",
-                        "**/infrastructure/out/repository/mapper/**",
-                        "**/MessageProvider.class"
-                    )
-                }
-            }
-        )
-    )
-
-    violationRules {
-        rule {
-            limit {
-                minimum = "0.80".toBigDecimal()
-            }
-        }
-    }
-}
-
-tasks.check {
-    dependsOn(tasks.jacocoTestCoverageVerification)
-}
-
-sonar {
-    properties {
-        property("sonar.projectKey", "user-service")
-        property("sonar.host.url", "http://localhost:9001")
-
-        property(
-            "sonar.coverage.jacoco.xmlReportPaths",
-            "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
-        )
-
-        property(
-            "sonar.coverage.exclusions",
-            listOf(
-                "**/UserServiceApplication.java",
-                "**/domain/model/**",
-                "**/domain/exception/**",
-                "**/infrastructure/config/**",
-                "**/infrastructure/exception/**",
-                "**/infrastructure/in/mapper/**",
-                "**/infrastructure/in/request/**",
-                "**/infrastructure/in/response/**",
-                "**/infrastructure/out/hash/**",
-                "**/infrastructure/out/repository/entity/**",
-                "**/infrastructure/out/repository/mapper/**",
-                "**/MessageProvider.java"
-            ).joinToString(",")
-        )
-
-        property("sonar.projectVersion", version.toString())
-    }
-}
-
-spotbugs {
-    ignoreFailures.set(false)
-    showProgress.set(true)
-
-    effort.set(com.github.spotbugs.snom.Effort.MAX)
-    reportLevel.set(com.github.spotbugs.snom.Confidence.DEFAULT)
-}
-
-tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
-    reports {
-        create("html") {
-            required.set(true)
-        }
-
-        create("xml") {
-            required.set(false)
-        }
-    }
-}
-
-pmd {
-    toolVersion = "7.13.0"
-
-    ruleSets = listOf(
-        "category/java/performance.xml",
-        "category/java/security.xml",
-        "category/java/design.xml",
-        //"category/java/errorprone.xml"
-        //"category/java/bestpractices.xml"
-        //"category/java/codestyle.xml"
-    )
-
-    // Añadir archivo personalizado
-    ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
-}
-
-spotless {
-    java {
-        removeUnusedImports()
-    }
-}
+// Configuración modular: cada archivo de gradle/ tiene una única responsabilidad.
+// Convención de nombres: <dominio>-<responsabilidad>.gradle (kebab-case)
+listOf(
+    "project-dependencies",
+    "quality-coverage-exclusions", // debe ir antes de quality-jacoco y quality-sonar
+    "quality-jacoco",
+    "quality-sonar",
+    "quality-spotbugs",
+    "quality-pmd",
+    "quality-spotless",
+).forEach { apply(from = "gradle/$it.gradle") }

@@ -1,0 +1,23 @@
+// Detección de bugs con SpotBugs + FindSecBugs
+dependencies {
+    spotbugs 'com.github.spotbugs:spotbugs:4.9.8'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
+}
+
+// Las clases del plugin no son visibles en scripts aplicados con apply(from=),
+// así que los enums se cargan desde el classloader del propio plugin.
+def snom = { String type -> spotbugs.class.classLoader.loadClass("com.github.spotbugs.snom.${type}") }
+
+spotbugs {
+    ignoreFailures = false
+    showProgress = true
+    effort = snom('Effort').MAX
+    reportLevel = snom('Confidence').DEFAULT
+}
+
+tasks.matching { it.name.startsWith('spotbugs') }.configureEach {
+    reports {
+        html { required = true }
+        xml { required = false }
+    }
+}

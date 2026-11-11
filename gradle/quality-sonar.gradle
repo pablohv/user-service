@@ -1,0 +1,11 @@
+// Análisis estático con SonarQube
+sonar {
+    properties {
+        property 'sonar.projectKey', 'user-service'
+        property 'sonar.host.url', 'http://localhost:9001'
+        property 'sonar.projectVersion', project.version.toString()
+        property 'sonar.coverage.jacoco.xmlReportPaths',
+            "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
+        property 'sonar.coverage.exclusions', sonarExclusions.join(',')
+    }
+}

@@ -1,0 +1,14 @@
+// Análisis de reglas con PMD
+pmd {
+    toolVersion = '7.13.0'
+    ruleSets = [
+        'category/java/performance.xml',
+        'category/java/security.xml',
+        'category/java/design.xml',
+        // 'category/java/errorprone.xml',
+        // 'category/java/bestpractices.xml',
+        // 'category/java/codestyle.xml'
+    ]
+    // Reglas personalizadas
+    ruleSetFiles = files("${rootDir}/config/pmd/pmd-ruleset.xml")
+}
